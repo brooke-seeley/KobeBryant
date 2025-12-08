@@ -87,59 +87,59 @@ bake(new_prep, new_data = trainData)
 #####
 
 # library(glmnet)
-# 
+#
 # preg_mod <- logistic_reg(mixture=tune(), penalty=tune()) %>%
 #   set_engine("glmnet")
-
+#
 # preg_workflow <- workflow() %>%
 #   add_recipe(target_recipe) %>%
 #   add_model(preg_mod)
-
+#
 # preg_workflow <- workflow() %>%
 #   add_recipe(new_recipe) %>%
 #   add_model(preg_mod)
-# 
+#
 # ### Grid of values to tune over
-# 
+#
 # tuning_grid <- grid_regular(penalty(),
 #                             mixture(),
 #                             levels = 5)
-# 
+#
 # ### Split data for CV
-# 
+#
 # folds <- vfold_cv(trainData, v = 5, repeats = 1)
-# 
+#
 # ### Run the CV
-# 
+#
 # CV_results <- preg_workflow %>%
 #   tune_grid(resamples=folds,
 #             grid=tuning_grid,
 #             metrics(metric_set(brier_class)))
-# 
+#
 # ### Find Best Tuning Parameters
-# 
+#
 # bestTune <- CV_results %>%
 #   select_best(metric="brier_class")
-# 
+#
 # ### Finalize the Workflow & fit it
-# 
+#
 # final_wf <-
 #   preg_workflow %>%
 #   finalize_workflow(bestTune) %>%
 #   fit(data=trainData)
-# 
+#
 # ### Predict
-# 
+#
 # pen_reg_predictions <- final_wf %>%
 #   predict(new_data = testData, type="prob")
-# 
+#
 # ### Kaggle
-# 
+#
 # pen_reg_kaggle_submission <- pen_reg_predictions %>%
 #   bind_cols(., testData) %>%
 #   select(shot_id, .pred_1) %>%
 #   rename(shot_made_flag=.pred_1)
-# 
+#
 # vroom_write(x=pen_reg_kaggle_submission, file="./PenRegPreds.csv", delim=',')
 # 
 # vroom_write(x=pen_reg_kaggle_submission, file="./NewPenRegPreds.csv", delim=',')
@@ -152,98 +152,98 @@ bake(new_prep, new_data = trainData)
 #####
 
 # library(rpart)
-
+#
 # tree_mod <- rand_forest(mtry=tune(),
 #                         min_n=tune(),
 #                         trees=500) %>%
 #   set_engine("ranger") %>%
 #   set_mode("classification")
-
+#
 # tree_mod <- rand_forest(mtry=tune(),
 #                         min_n=tune(),
 #                         trees=tune()) %>%
 #   set_engine("ranger") %>%
 #   set_mode("classification")
-
+#
 # tree_workflow <- workflow() %>%
 #   add_recipe(target_recipe) %>%
 #   add_model(tree_mod)
-
+#
 # tree_workflow <- workflow() %>%
 #   add_recipe(new_recipe) %>%
 #   add_model(tree_mod)
-
+#
 ### Grid of values to tune over
-
+#
 # tuning_grid <- grid_regular(mtry(range=c(1,20)),
 #                             min_n(),
 #                             levels=5)
-
+#
 # tuning_grid <- grid_regular(mtry(range=c(1,20)),
 #                             min_n(),
 #                             trees(range=c(100,1000)),
 #                             levels=5)
-
+#
 # tuning_grid <- grid_regular(mtry(range = c(2, 10)),
 #                             min_n(range = c(1, 20)),
 #                             trees(range = c(200, 600)),
 #                             levels = 5)
-
+#
 # tuning_grid <- grid_regular(mtry(range = c(2, 10)),
 #                             min_n(),
 #                             levels=10)
-
+#
 # tuning_grid <- grid_regular(mtry(range = c(2, 6)),
 #                             min_n(range = c(20, 80)),
 #                             levels=5)
-
+#
 # tuning_grid <- grid_regular(mtry(range = c(2, 8)),
 #                             min_n(range = c(60, 120)),
 #                             levels=5)
-
+#
 # ### CV
-
+#
 # folds <- vfold_cv(trainData, v = 5, repeats = 1)
 # 
 # CV_results <- tree_workflow %>%
 #   tune_grid(resamples=folds,
 #             grid=tuning_grid,
 #             metrics=(metric_set(brier_class)))
-
+#
 # ### Find best tuning parameters
-
+#
 # bestTune <- CV_results %>%
 #   select_best(metric="brier_class")
-
+#
 # ### Finalize workflow
-
+#
 # final_wf <-
 #   tree_workflow %>%
 #   finalize_workflow(bestTune) %>%
 #   fit(data=trainData)
-
+#
 # ### Predict
-
+#
 # tree_predictions <- final_wf %>%
 #   predict(new_data = testData, type="prob")
-
+#
 # ### Kaggle
-
+#
 # tree_kaggle_submission <- tree_predictions %>%
 #   bind_cols(., testData) %>%
 #   select(shot_id, .pred_1) %>%
 #   rename(shot_made_flag=.pred_1)
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./RegTreePreds.csv", delim=',')
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./FullyTunedTreePreds.csv", delim=',')
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./TunedTreePreds.csv", delim=',')
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./NewRFPreds.csv", delim=',')
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./NewRFPreds2.csv", delim=',')
-
+#
 # vroom_write(x=tree_kaggle_submission, file="./NewRFPreds3.csv", delim=',')
 
 #####
